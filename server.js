@@ -46,16 +46,18 @@ db.once("open", () => {
 })
 
 app.get("/", (req, res) => res.status(200).send("Hello There Friend"))
+
 app.post('/messages/new', (req,res) => {
     const dbMessage = req.body
-    Messages.create(dbMessage)
-    .then((data) => {
-        res.status(200).send(data)
+     Messages.create(dbMessage)
+    .then(result => {
+        res.status(200).send(result)
     })
-    .catch((err) => {
-        res.status(500).send(err)
+    .catch(err => {
+        res.status(500).send({err: "Couldn't create document"})
     })
 })
+
 app.get('/messages/sync', (req,res) => {
     Messages.find()
     .then((data) => {
