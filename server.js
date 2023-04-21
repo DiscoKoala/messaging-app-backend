@@ -13,7 +13,7 @@ const pusher = new Pusher ({
     key: "c7f9df435c12676138ae",
     secret: "8c932397684cb92d8f88",
     cluster: "us2",
-    useTLS: true
+    forceTLS: true
 });
 
 // Middleware
@@ -50,8 +50,8 @@ app.get("/", (req, res) => res.status(200).send("Hello There Friend"))
 app.post('/messages/new', (req,res) => {
     const dbMessage = req.body
      Messages.create(dbMessage)
-    .then(result => {
-        res.status(200).send(result)
+    .then(data => {
+        res.status(200).send(data)
     })
     .catch(err => {
         res.status(500).send({err: "Couldn't create document"})
@@ -68,4 +68,4 @@ app.get('/messages/sync', (req,res) => {
     })
 })
 
-app.listen(port, () => console.log('Listening on localhost: ${port}'))
+app.listen(port, () => console.log(`Listening on localhost: ${port}`))
