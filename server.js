@@ -47,7 +47,7 @@ db.once("open", () => {
 
 app.get("/", (req, res) => res.status(200).send("Hello There Friend"))
 
-app.post('/messages/new', (req,res) => {
+app.post('/messages/new', function(req,res){
     const dbMessage = req.body
      Messages.create(dbMessage)
     .then((data) => {
@@ -58,7 +58,7 @@ app.post('/messages/new', (req,res) => {
     })
 })
 
-app.get('/messages/sync', (req,res) => {
+app.get('/messages/sync', function(req,res) {
     Messages.find()
     .then((data) => {
         res.status(200).send(data)
